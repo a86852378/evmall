@@ -2,13 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Oval 5.png",
+      "filename" : "973d3da683758cc6ecc280fe2ec7256c.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Oval 5@2x.png",
+      "filename" : "973d3da683758cc6ecc280fe2ec7256c@2x.png",
       "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {
