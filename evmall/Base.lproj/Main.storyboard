@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--e家商城-->
@@ -23,6 +24,9 @@
                                     <outlet property="delegate" destination="HRw-Hb-vqO" id="HOs-jf-gsB"/>
                                 </connections>
                             </scrollView>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="cJv-Gr-Zro">
+                                <rect key="frame" x="257" y="173" width="47" height="37"/>
+                            </pageControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -30,10 +34,14 @@
                             <constraint firstItem="0Vi-CZ-anC" firstAttribute="top" secondItem="HBf-UP-iKO" secondAttribute="bottom" id="4Nf-g1-vnd"/>
                             <constraint firstItem="0Vi-CZ-anC" firstAttribute="centerX" secondItem="PIY-cU-7RK" secondAttribute="centerX" id="69B-bL-Asi"/>
                             <constraint firstItem="hGp-aZ-nIa" firstAttribute="top" secondItem="0Vi-CZ-anC" secondAttribute="bottom" constant="354" id="AB8-6u-8HW"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="cJv-Gr-Zro" secondAttribute="trailing" id="fo9-jw-8ba"/>
+                            <constraint firstItem="cJv-Gr-Zro" firstAttribute="top" secondItem="HBf-UP-iKO" secondAttribute="bottom" constant="109" id="gCS-gM-uf4"/>
+                            <constraint firstItem="cJv-Gr-Zro" firstAttribute="leading" secondItem="PIY-cU-7RK" secondAttribute="leadingMargin" constant="241" id="mfd-0j-vlj"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="e家商城" id="JCG-7k-lZT"/>
                     <connections>
+                        <outlet property="pageControl" destination="cJv-Gr-Zro" id="kyf-LL-TgI"/>
                         <outlet property="scrollView" destination="0Vi-CZ-anC" id="UnD-IZ-U7F"/>
                         <outlet property="view" destination="PIY-cU-7RK" id="j8x-Vj-iPq"/>
                     </connections>
