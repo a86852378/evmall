@@ -92,6 +92,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5B234D8B1D8FD79D0016839C /* viewCell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = viewCell;
+			sourceTree = "<group>";
+		};
 		5B2CA2581D7FB4B30039F771 = {
 			isa = PBXGroup;
 			children = (
@@ -116,6 +123,7 @@
 				5B2CA2841D7FB5DB0039F771 /* constant.swift */,
 				5B2CA2641D7FB4B30039F771 /* AppDelegate.swift */,
 				5B2CA2871D7FB7FE0039F771 /* controller */,
+				5B234D8B1D8FD79D0016839C /* viewCell */,
 				5B2CA28A1D7FEAF50039F771 /* service */,
 				5B2CA29E1D7FF8830039F771 /* model */,
 				5B2CA28F1D7FF8200039F771 /* utils */,
