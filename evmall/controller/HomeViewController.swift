@@ -10,33 +10,26 @@ import UIKit
 
 class HomeViewController: UITableViewController,UICollectionViewDelegate,UICollectionViewDataSource{
 
-
     var pageControl = UIPageControl()
     var scrollView = UIScrollView()
-    var collectionView = UICollectionView(frame: CGRectMake(0, 0, 0, 0), collectionViewLayout: UICollectionViewFlowLayout())
+    var goodsclassCollectionView = UICollectionView(frame: CGRectMake(0, 0, 0, 0), collectionViewLayout: UICollectionViewFlowLayout())
+    var goodsCollectionView = UICollectionView(frame: CGRectMake(0, 0, 0, 0), collectionViewLayout: UICollectionViewFlowLayout())
     var timer: NSTimer?
     var rollingTime: NSTimeInterval = 3.0
-    
     var array: [Goodsclass] = []
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.separatorStyle = UITableViewCellSeparatorStyle.None
-        
-        
-                // Do any additional setup after loading the view, typically from a nib.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 3
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -45,6 +38,9 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
             height = 120
         }
         else if(indexPath.row == 1){
+            height = 130
+        }
+        else if(indexPath.row == 2){
             height = 130
         }
         return height
@@ -60,16 +56,21 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
             scrollView.scrollEnabled = true
             scrollView.frame = CGRectMake(0, 0, 320, 120)
             for i in 0...4{
-                var picName = "广告"
-                switch i {
-                case 0:
-                    picName = picName + "3"
-                case 4:
-                    picName = picName + "1"
-                default:
-                    picName = picName + i.description
-                }
-                let imageView =  UIImageView(image: UIImage(named: picName))
+//                var picName = "广告"
+//                switch i {
+//                case 0:
+//                    picName = picName + "3"
+//                case 4:
+//                    picName = picName + "1"
+//                default:
+//                    picName = picName + i.description
+//                }
+//                
+                let imageUrlString:String = "http://192.168.161.222/evmall-api/data/upload/mobile/special/s0/s0_04878419181548106.jpg"
+                let url:NSURL! = NSURL(string: imageUrlString)
+                let data:NSData! = NSData(contentsOfURL: url)
+                let image = UIImage(data: data)
+                let imageView =  UIImageView(image: image)
             
                 imageView.frame = CGRectMake(scrollView.frame.width*CGFloat(i), 0, scrollView.frame.width, scrollView.frame.height)
                 scrollView.addSubview(imageView)
@@ -93,17 +94,30 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
         }
         //商品大类窗口
         else if(indexPath.row == 1){
-            collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+            goodsclassCollectionView.tag = 1
+            goodsclassCollectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "goodsclassCell")
             serviceController.getData(){(array) in
                 self.array = array as! [Goodsclass]
-                dispatch_async(dispatch_get_main_queue(),{self.collectionView.reloadData()})
+                dispatch_async(dispatch_get_main_queue(),{self.goodsclassCollectionView.reloadData()})
             }
-            collectionView.frame = CGRectMake(0, 0, 320, 130)
-            collectionView.showsHorizontalScrollIndicator = false
-            collectionView.backgroundColor = UIColor.whiteColor()
-            collectionView.delegate = self
-            collectionView.dataSource = self
-            cell.addSubview(collectionView)
+            goodsclassCollectionView.frame = CGRectMake(0, 0, 320, 130)
+            goodsclassCollectionView.backgroundColor = UIColor.whiteColor()
+            goodsclassCollectionView.delegate = self
+            goodsclassCollectionView.dataSource = self
+            cell.addSubview(goodsclassCollectionView)
+        }
+        else if(indexPath.row == 2){
+            goodsCollectionView.tag = 2
+            goodsCollectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "goodsCell")
+            serviceController.getData(){(array) in
+                self.array = array as! [Goodsclass]
+                dispatch_async(dispatch_get_main_queue(),{self.goodsCollectionView.reloadData()})
+            }
+            goodsCollectionView.frame = CGRectMake(0, 0, 320, 130)
+            goodsCollectionView.backgroundColor = UIColor.whiteColor()
+            goodsCollectionView.delegate = self
+            goodsCollectionView.dataSource = self
+            cell.addSubview(goodsCollectionView)
         }
         return cell
     }
@@ -111,6 +125,7 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
     func next() {
        scrollView.setContentOffset(CGPoint(x: (scrollView.frame.width * CGFloat(self.pageControl.currentPage + 2)), y: 0), animated: true)
     }
+    
     override func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         if scrollView == self.scrollView {
             let offsetX = scrollView.contentOffset.x
@@ -124,6 +139,7 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
             self.pageControl.currentPage = Int(currentPage)
         }
     }
+    
     override func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
         if scrollView == self.scrollView {
             let offsetX = scrollView.contentOffset.x
@@ -149,9 +165,10 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
     {
         return self.array.count
     }
+    
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
     {
-        let cell = self.collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as UICollectionViewCell
+        let cell = self.goodsclassCollectionView.dequeueReusableCellWithReuseIdentifier("goodsclassCell", forIndexPath: indexPath) as UICollectionViewCell
         let imageView = UIImageView(image: UIImage(named: "商品大类"+String(self.array[indexPath.row].id)))
         imageView.frame = CGRectMake(6, 0, 38, 38)
         let label = UILabel(frame: CGRectMake(0,40,50,10))
@@ -163,9 +180,20 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
         cell.addSubview(label)
         return cell
     }
+    
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets{
+//                print(tableView.indexPathForCell(collectionView as! UITableViewCell))
+        //print("************************")
+//        var edge = UIEdgeInsetsMake(0, 0, 0, 0)
+//        if(collectionView.tag == 1){
+//            edge = UIEdgeInsets(top: 10,left: 15,bottom: 10,right: 15)
+//        }
+//        else if(collectionView.tag == 2){
+//            edge = UIEdgeInsets(top: 10,left: 15,bottom: 10,right: 15)
+//        }
         return UIEdgeInsetsMake(10, 15, 10, 15)
     }
+    
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
     {
         //点击事件
