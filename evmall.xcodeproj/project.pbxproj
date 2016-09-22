@@ -16,21 +16,10 @@
 		5B2CA2891D7FB7FE0039F771 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2CA2881D7FB7FE0039F771 /* HomeViewController.swift */; };
 		5B2CA28D1D7FEBC90039F771 /* RequestServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2CA28B1D7FEBC90039F771 /* RequestServer.swift */; };
 		5B2CA28E1D7FEBC90039F771 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2CA28C1D7FEBC90039F771 /* Service.swift */; };
-		5B2CA2971D7FF8200039F771 /* ConverJsonToModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2CA2901D7FF8200039F771 /* ConverJsonToModel.swift */; };
-		5B2CA2981D7FF8200039F771 /* ConvertJsonToAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2CA2911D7FF8200039F771 /* ConvertJsonToAgent.swift */; };
-		5B2CA2991D7FF8200039F771 /* ConvertJsonToDatadict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2CA2921D7FF8200039F771 /* ConvertJsonToDatadict.swift */; };
-		5B2CA29A1D7FF8200039F771 /* ConvertJsonToGoodsclass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2CA2931D7FF8200039F771 /* ConvertJsonToGoodsclass.swift */; };
-		5B2CA29B1D7FF8200039F771 /* ConvertJsonToStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2CA2941D7FF8200039F771 /* ConvertJsonToStore.swift */; };
-		5B2CA29C1D7FF8200039F771 /* ConvertJsonToTradingArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2CA2951D7FF8200039F771 /* ConvertJsonToTradingArea.swift */; };
 		5B2CA29D1D7FF8200039F771 /* ConvertModelToDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2CA2961D7FF8200039F771 /* ConvertModelToDictionary.swift */; };
-		5B2CA2A81D7FF8830039F771 /* Agent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2CA29F1D7FF8830039F771 /* Agent.swift */; };
-		5B2CA2A91D7FF8830039F771 /* AgentTradingAreas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2CA2A01D7FF8830039F771 /* AgentTradingAreas.swift */; };
-		5B2CA2AA1D7FF8830039F771 /* Datadict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2CA2A11D7FF8830039F771 /* Datadict.swift */; };
 		5B2CA2AC1D7FF8830039F771 /* Goodsclass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2CA2A31D7FF8830039F771 /* Goodsclass.swift */; };
-		5B2CA2AD1D7FF8830039F771 /* Seller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2CA2A41D7FF8830039F771 /* Seller.swift */; };
-		5B2CA2AE1D7FF8830039F771 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2CA2A51D7FF8830039F771 /* Store.swift */; };
-		5B2CA2AF1D7FF8830039F771 /* TradingArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2CA2A61D7FF8830039F771 /* TradingArea.swift */; };
-		5B2CA2B01D7FF8830039F771 /* TradingAreaCommunity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2CA2A71D7FF8830039F771 /* TradingAreaCommunity.swift */; };
+		5B40452B1D93C88700550030 /* Goods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B40452A1D93C88700550030 /* Goods.swift */; };
+		5B40452F1D93D92B00550030 /* AdvImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B40452E1D93D92B00550030 /* AdvImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,21 +46,10 @@
 		5B2CA2881D7FB7FE0039F771 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		5B2CA28B1D7FEBC90039F771 /* RequestServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestServer.swift; sourceTree = "<group>"; };
 		5B2CA28C1D7FEBC90039F771 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
-		5B2CA2901D7FF8200039F771 /* ConverJsonToModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConverJsonToModel.swift; sourceTree = "<group>"; };
-		5B2CA2911D7FF8200039F771 /* ConvertJsonToAgent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvertJsonToAgent.swift; sourceTree = "<group>"; };
-		5B2CA2921D7FF8200039F771 /* ConvertJsonToDatadict.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvertJsonToDatadict.swift; sourceTree = "<group>"; };
-		5B2CA2931D7FF8200039F771 /* ConvertJsonToGoodsclass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvertJsonToGoodsclass.swift; sourceTree = "<group>"; };
-		5B2CA2941D7FF8200039F771 /* ConvertJsonToStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvertJsonToStore.swift; sourceTree = "<group>"; };
-		5B2CA2951D7FF8200039F771 /* ConvertJsonToTradingArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvertJsonToTradingArea.swift; sourceTree = "<group>"; };
 		5B2CA2961D7FF8200039F771 /* ConvertModelToDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvertModelToDictionary.swift; sourceTree = "<group>"; };
-		5B2CA29F1D7FF8830039F771 /* Agent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Agent.swift; sourceTree = "<group>"; };
-		5B2CA2A01D7FF8830039F771 /* AgentTradingAreas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgentTradingAreas.swift; sourceTree = "<group>"; };
-		5B2CA2A11D7FF8830039F771 /* Datadict.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Datadict.swift; sourceTree = "<group>"; };
 		5B2CA2A31D7FF8830039F771 /* Goodsclass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Goodsclass.swift; sourceTree = "<group>"; };
-		5B2CA2A41D7FF8830039F771 /* Seller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Seller.swift; sourceTree = "<group>"; };
-		5B2CA2A51D7FF8830039F771 /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
-		5B2CA2A61D7FF8830039F771 /* TradingArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TradingArea.swift; sourceTree = "<group>"; };
-		5B2CA2A71D7FF8830039F771 /* TradingAreaCommunity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TradingAreaCommunity.swift; sourceTree = "<group>"; };
+		5B40452A1D93C88700550030 /* Goods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Goods.swift; sourceTree = "<group>"; };
+		5B40452E1D93D92B00550030 /* AdvImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,13 +70,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5B234D8B1D8FD79D0016839C /* viewCell */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = viewCell;
-			sourceTree = "<group>";
-		};
 		5B2CA2581D7FB4B30039F771 = {
 			isa = PBXGroup;
 			children = (
@@ -123,7 +94,6 @@
 				5B2CA2841D7FB5DB0039F771 /* constant.swift */,
 				5B2CA2641D7FB4B30039F771 /* AppDelegate.swift */,
 				5B2CA2871D7FB7FE0039F771 /* controller */,
-				5B234D8B1D8FD79D0016839C /* viewCell */,
 				5B2CA28A1D7FEAF50039F771 /* service */,
 				5B2CA29E1D7FF8830039F771 /* model */,
 				5B2CA28F1D7FF8200039F771 /* utils */,
@@ -164,12 +134,6 @@
 		5B2CA28F1D7FF8200039F771 /* utils */ = {
 			isa = PBXGroup;
 			children = (
-				5B2CA2901D7FF8200039F771 /* ConverJsonToModel.swift */,
-				5B2CA2911D7FF8200039F771 /* ConvertJsonToAgent.swift */,
-				5B2CA2921D7FF8200039F771 /* ConvertJsonToDatadict.swift */,
-				5B2CA2931D7FF8200039F771 /* ConvertJsonToGoodsclass.swift */,
-				5B2CA2941D7FF8200039F771 /* ConvertJsonToStore.swift */,
-				5B2CA2951D7FF8200039F771 /* ConvertJsonToTradingArea.swift */,
 				5B2CA2961D7FF8200039F771 /* ConvertModelToDictionary.swift */,
 			);
 			path = utils;
@@ -178,14 +142,9 @@
 		5B2CA29E1D7FF8830039F771 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				5B2CA29F1D7FF8830039F771 /* Agent.swift */,
-				5B2CA2A01D7FF8830039F771 /* AgentTradingAreas.swift */,
-				5B2CA2A11D7FF8830039F771 /* Datadict.swift */,
 				5B2CA2A31D7FF8830039F771 /* Goodsclass.swift */,
-				5B2CA2A41D7FF8830039F771 /* Seller.swift */,
-				5B2CA2A51D7FF8830039F771 /* Store.swift */,
-				5B2CA2A61D7FF8830039F771 /* TradingArea.swift */,
-				5B2CA2A71D7FF8830039F771 /* TradingAreaCommunity.swift */,
+				5B40452A1D93C88700550030 /* Goods.swift */,
+				5B40452E1D93D92B00550030 /* AdvImage.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -291,25 +250,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5B2CA2B01D7FF8830039F771 /* TradingAreaCommunity.swift in Sources */,
 				5B2CA2AC1D7FF8830039F771 /* Goodsclass.swift in Sources */,
-				5B2CA29A1D7FF8200039F771 /* ConvertJsonToGoodsclass.swift in Sources */,
 				5B2CA2851D7FB5DB0039F771 /* constant.swift in Sources */,
 				5B2CA2891D7FB7FE0039F771 /* HomeViewController.swift in Sources */,
-				5B2CA2991D7FF8200039F771 /* ConvertJsonToDatadict.swift in Sources */,
-				5B2CA2AD1D7FF8830039F771 /* Seller.swift in Sources */,
-				5B2CA2A91D7FF8830039F771 /* AgentTradingAreas.swift in Sources */,
+				5B40452B1D93C88700550030 /* Goods.swift in Sources */,
 				5B2CA29D1D7FF8200039F771 /* ConvertModelToDictionary.swift in Sources */,
-				5B2CA2A81D7FF8830039F771 /* Agent.swift in Sources */,
-				5B2CA2AF1D7FF8830039F771 /* TradingArea.swift in Sources */,
-				5B2CA29B1D7FF8200039F771 /* ConvertJsonToStore.swift in Sources */,
 				5B2CA28E1D7FEBC90039F771 /* Service.swift in Sources */,
-				5B2CA29C1D7FF8200039F771 /* ConvertJsonToTradingArea.swift in Sources */,
-				5B2CA2971D7FF8200039F771 /* ConverJsonToModel.swift in Sources */,
-				5B2CA2AE1D7FF8830039F771 /* Store.swift in Sources */,
-				5B2CA2AA1D7FF8830039F771 /* Datadict.swift in Sources */,
-				5B2CA2981D7FF8200039F771 /* ConvertJsonToAgent.swift in Sources */,
 				5B2CA28D1D7FEBC90039F771 /* RequestServer.swift in Sources */,
+				5B40452F1D93D92B00550030 /* AdvImage.swift in Sources */,
 				5B2CA2651D7FB4B30039F771 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

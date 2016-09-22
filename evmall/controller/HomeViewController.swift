@@ -16,7 +16,9 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
     var goodsCollectionView = UICollectionView(frame: CGRectMake(0, 0, 0, 0), collectionViewLayout: UICollectionViewFlowLayout())
     var timer: NSTimer?
     var rollingTime: NSTimeInterval = 3.0
-    var array: [Goodsclass] = []
+    var advImageArray: [AdvImage] = []
+    var goodsclassArray: [Goodsclass] = []
+    var goodsArray: [Goods] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,32 +57,25 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
             scrollView.showsVerticalScrollIndicator = false
             scrollView.scrollEnabled = true
             scrollView.frame = CGRectMake(0, 0, 320, 120)
-            for i in 0...4{
-//                var picName = "广告"
-//                switch i {
-//                case 0:
-//                    picName = picName + "3"
-//                case 4:
-//                    picName = picName + "1"
-//                default:
-//                    picName = picName + i.description
-//                }
-//                
-                let imageUrlString:String = "http://192.168.161.222/evmall-api/data/upload/mobile/special/s0/s0_04878419181548106.jpg"
-                let url:NSURL! = NSURL(string: imageUrlString)
-                let data:NSData! = NSData(contentsOfURL: url)
-                let image = UIImage(data: data)
-                let imageView =  UIImageView(image: image)
-            
-                imageView.frame = CGRectMake(scrollView.frame.width*CGFloat(i), 0, scrollView.frame.width, scrollView.frame.height)
-                scrollView.addSubview(imageView)
+            getData("advImage"){(array) in
+                self.advImageArray = array as! [AdvImage]
+                for i in 0..<self.advImageArray.count {
+                    let imageUrlString:String = self.advImageArray[i].image
+                    let url:NSURL! = NSURL(string: imageUrlString)
+                    let data:NSData! = NSData(contentsOfURL: url)
+                    let image = UIImage(data: data)
+                    let imageView =  UIImageView(image: image)
+                    
+                    imageView.frame = CGRectMake(self.scrollView.frame.width*CGFloat(i), 0, self.scrollView.frame.width, self.scrollView.frame.height)
+                    self.scrollView.addSubview(imageView)
+                }
+                self.pageControl.numberOfPages = self.advImageArray.count
             }
             scrollView.contentSize = CGSizeMake(scrollView.frame.width*5,scrollView.frame.height)
             scrollView.contentOffset = CGPointMake(scrollView.frame.width, 0)
             self.edgesForExtendedLayout = UIRectEdge.None
             self.automaticallyAdjustsScrollViewInsets = false
             scrollView.delegate = self
-            pageControl.numberOfPages = 3
             pageControl.currentPageIndicatorTintColor = UIColor.redColor()
             pageControl.pageIndicatorTintColor = UIColor.whiteColor()
             pageControl.frame = CGRectMake(260, 100, 40, 10)
@@ -94,10 +89,9 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
         }
         //商品大类窗口
         else if(indexPath.row == 1){
-            goodsclassCollectionView.tag = 1
             goodsclassCollectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "goodsclassCell")
-            serviceController.getData(){(array) in
-                self.array = array as! [Goodsclass]
+            getData("goodsclass"){(array) in
+                self.goodsclassArray = array as! [Goodsclass]
                 dispatch_async(dispatch_get_main_queue(),{self.goodsclassCollectionView.reloadData()})
             }
             goodsclassCollectionView.frame = CGRectMake(0, 0, 320, 130)
@@ -107,10 +101,9 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
             cell.addSubview(goodsclassCollectionView)
         }
         else if(indexPath.row == 2){
-            goodsCollectionView.tag = 2
             goodsCollectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "goodsCell")
-            serviceController.getData(){(array) in
-                self.array = array as! [Goodsclass]
+            getData("goods"){(array) in
+                self.goodsArray = array as! [Goods]
                 dispatch_async(dispatch_get_main_queue(),{self.goodsCollectionView.reloadData()})
             }
             goodsCollectionView.frame = CGRectMake(0, 0, 320, 130)
@@ -163,34 +156,42 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        return self.array.count
+        var cellNumber: Int = 0
+        if(collectionView === goodsclassCollectionView){
+            cellNumber = self.goodsclassArray.count
+        }
+        else if(collectionView === goodsclassCollectionView){
+            cellNumber = self.goodsArray.count
+        }
+        return cellNumber
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
     {
-        let cell = self.goodsclassCollectionView.dequeueReusableCellWithReuseIdentifier("goodsclassCell", forIndexPath: indexPath) as UICollectionViewCell
-        let imageView = UIImageView(image: UIImage(named: "商品大类"+String(self.array[indexPath.row].id)))
-        imageView.frame = CGRectMake(6, 0, 38, 38)
-        let label = UILabel(frame: CGRectMake(0,40,50,10))
-        label.text = self.array[indexPath.row].gcName
-        label.textAlignment = NSTextAlignment.Center
-        label.font = UIFont(name: ".SFUIText-Regular", size: 10)
-        cell.backgroundColor = UIColor.whiteColor()
-        cell.addSubview(imageView)
-        cell.addSubview(label)
-        return cell
+        var cell: UICollectionViewCell? = nil
+        if(collectionView === goodsclassCollectionView){
+            cell = self.goodsclassCollectionView.dequeueReusableCellWithReuseIdentifier("goodsclassCell", forIndexPath: indexPath) as UICollectionViewCell
+            let imageUrlString:String = self.goodsclassArray[indexPath.row].gcImage
+            let url:NSURL! = NSURL(string: imageUrlString)
+            let data:NSData! = NSData(contentsOfURL: url)
+            let image = UIImage(data: data)
+            let imageView =  UIImageView(image: image)
+            imageView.frame = CGRectMake(6, 0, 38, 38)
+            let label = UILabel(frame: CGRectMake(0,40,50,10))
+            label.text = self.goodsclassArray[indexPath.row].gcName
+            label.textAlignment = NSTextAlignment.Center
+            label.font = UIFont(name: ".SFUIText-Regular", size: 10)
+            cell!.backgroundColor = UIColor.whiteColor()
+            cell!.addSubview(imageView)
+            cell!.addSubview(label)
+        }
+        else if(collectionView === goodsCollectionView){
+            cell = self.goodsCollectionView.dequeueReusableCellWithReuseIdentifier("goodsCell", forIndexPath: indexPath) as UICollectionViewCell
+        }
+        return cell!
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets{
-//                print(tableView.indexPathForCell(collectionView as! UITableViewCell))
-        //print("************************")
-//        var edge = UIEdgeInsetsMake(0, 0, 0, 0)
-//        if(collectionView.tag == 1){
-//            edge = UIEdgeInsets(top: 10,left: 15,bottom: 10,right: 15)
-//        }
-//        else if(collectionView.tag == 2){
-//            edge = UIEdgeInsets(top: 10,left: 15,bottom: 10,right: 15)
-//        }
         return UIEdgeInsetsMake(10, 15, 10, 15)
     }
     
