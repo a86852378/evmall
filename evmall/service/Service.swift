@@ -16,28 +16,30 @@ public func getData(modelName:String, completion: (array: [AnyObject]) -> ()) {
 }
 
 public func jsonConvertToModel(json: AnyObject, lastUrl: String) -> [AnyObject] {
-    var objArray: [AnyObject] = []
+    let objArray: [AnyObject] = []
+    var goodsclassArray: [Goodsclass] = []
+    var goodsArray: [Goods] = []
+    var advertisingArray: [Advertising] = []
     switch lastUrl {
     case "goodsclass":
-        objArray = convertJsonToGoodsclass(json)
-    default:
-        break
-    }
-    return objArray
-}
-
-func convertJsonToGoodsclass(json: AnyObject) -> [Goodsclass] {
-    var goodsclassArray: [Goodsclass] = []
-    switch json {
-    case let ary as NSArray:
-        for i in 0..<ary.count{
-            let goodsclass = Goodsclass(json: ary[i])
+        for i in 0..<json.count{
+            let goodsclass = Goodsclass(json: json[i])
             goodsclassArray.append(goodsclass)
         }
-    case let dict as NSDictionary:
-        let goodsclass = Goodsclass(json: dict)
-        goodsclassArray.append(goodsclass)
-    default:break
+        return goodsclassArray
+    case "goods":
+        for i in 0..<json.objectForKey("data")!.count{
+            let goods = Goods(json: json.objectForKey("data")![i])
+            goodsArray.append(goods)
+        }
+        return goodsArray
+    case "advertising":
+        for i in 0..<json.count{
+            let advertising = Advertising(json: json[i])
+            advertisingArray.append(advertising)
+        }
+        return advertisingArray
+    default:
+        return objArray
     }
-    return goodsclassArray
 }

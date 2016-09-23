@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import evmall_swift
+
 
 class evmall_swiftTests: XCTestCase {
     

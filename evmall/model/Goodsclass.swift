@@ -9,13 +9,12 @@
 import UIKit
 
 class Goodsclass {
-    var gcName: String = ""                  
-    var gcImage: String = ""
+    var gcName: String = ""
+    var iconUrl: String = ""
     
     init(){}
     init(json: AnyObject) {
         if let objKey = json.objectForKey("gcName"){self.gcName = objKey as! String}
-        if let objKey = json.objectForKey("gcImage"){self.gcImage = objKey as! String}
-        
+        if let objKey = json.objectForKey("iconUrl"){self.iconUrl = objKey as! String}
     }
 }

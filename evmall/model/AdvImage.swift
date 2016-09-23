@@ -10,12 +10,14 @@ import UIKit
 
 import UIKit
 
-class AdvImage {
-    var image: String = ""
+class Advertising {
+    var pictureUrl: String = ""
+    var linkUrl: String = ""
     
     init(){}
     init(json: AnyObject) {
-        if let objKey = json.objectForKey("image"){self.image = objKey as! String}
+        if let objKey = json.objectForKey("pictureUrl"){self.pictureUrl = objKey as! String}
+        if let objKey = json.objectForKey("linkUrl"){self.linkUrl = objKey as! String}
     }
 }
 

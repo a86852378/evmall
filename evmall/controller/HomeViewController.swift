@@ -16,7 +16,7 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
     var goodsCollectionView = UICollectionView(frame: CGRectMake(0, 0, 0, 0), collectionViewLayout: UICollectionViewFlowLayout())
     var timer: NSTimer?
     var rollingTime: NSTimeInterval = 3.0
-    var advImageArray: [AdvImage] = []
+    var advertisingArray: [Advertising] = []
     var goodsclassArray: [Goodsclass] = []
     var goodsArray: [Goods] = []
     
@@ -57,35 +57,46 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
             scrollView.showsVerticalScrollIndicator = false
             scrollView.scrollEnabled = true
             scrollView.frame = CGRectMake(0, 0, 320, 120)
-            getData("advImage"){(array) in
-                self.advImageArray = array as! [AdvImage]
-                for i in 0..<self.advImageArray.count {
-                    let imageUrlString:String = self.advImageArray[i].image
+            getData("advertising"){(array) in
+                self.advertisingArray = array as! [Advertising]
+                for i in 0...self.advertisingArray.count+1 {
+                    let imageUrlString:String
+                    switch i {
+                    case 0:
+                        imageUrlString = self.advertisingArray[self.advertisingArray.count-1].pictureUrl
+                    case self.advertisingArray.count+1:
+                        imageUrlString = self.advertisingArray[0].pictureUrl
+                    default:
+                        imageUrlString = self.advertisingArray[i-1].pictureUrl
+                    }
                     let url:NSURL! = NSURL(string: imageUrlString)
                     let data:NSData! = NSData(contentsOfURL: url)
                     let image = UIImage(data: data)
                     let imageView =  UIImageView(image: image)
-                    
+                    print()
                     imageView.frame = CGRectMake(self.scrollView.frame.width*CGFloat(i), 0, self.scrollView.frame.width, self.scrollView.frame.height)
                     self.scrollView.addSubview(imageView)
                 }
-                self.pageControl.numberOfPages = self.advImageArray.count
+                    
+                dispatch_async(dispatch_get_main_queue(),{self.pageControl.numberOfPages = self.advertisingArray.count
+                    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.width*CGFloat(self.advertisingArray.count+2),self.scrollView.frame.height)}
+                )
             }
-            scrollView.contentSize = CGSizeMake(scrollView.frame.width*5,scrollView.frame.height)
-            scrollView.contentOffset = CGPointMake(scrollView.frame.width, 0)
+            self.scrollView.contentOffset = CGPointMake(self.scrollView.frame.width, 0)
             self.edgesForExtendedLayout = UIRectEdge.None
             self.automaticallyAdjustsScrollViewInsets = false
-            scrollView.delegate = self
-            pageControl.currentPageIndicatorTintColor = UIColor.redColor()
-            pageControl.pageIndicatorTintColor = UIColor.whiteColor()
-            pageControl.frame = CGRectMake(260, 100, 40, 10)
-            pageControl.addTarget(self, action: #selector(pageChanged(_:)),forControlEvents: UIControlEvents.ValueChanged)
+            self.scrollView.delegate = self
+            self.pageControl.currentPageIndicatorTintColor = UIColor.redColor()
+            self.pageControl.pageIndicatorTintColor = UIColor.whiteColor()
+            self.pageControl.frame = CGRectMake(260, 100, 40, 10)
+            self.pageControl.addTarget(self, action: #selector(self.pageChanged(_:)),forControlEvents: UIControlEvents.ValueChanged)
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
                     self.timer = NSTimer.scheduledTimerWithTimeInterval(self.rollingTime, target: self, selector: #selector(self.next), userInfo: nil, repeats: true)
                     NSRunLoop.currentRunLoop().run()
                 }
-            cell.addSubview(scrollView)
-            cell.addSubview(pageControl)
+            self.scrollView.backgroundColor = UIColor.greenColor()
+            cell.addSubview(self.scrollView)
+            cell.addSubview(self.pageControl)
         }
         //商品大类窗口
         else if(indexPath.row == 1){
@@ -116,19 +127,19 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
     }
     
     func next() {
-       scrollView.setContentOffset(CGPoint(x: (scrollView.frame.width * CGFloat(self.pageControl.currentPage + 2)), y: 0), animated: true)
+       scrollView.setContentOffset(CGPoint(x: (scrollView.frame.width * CGFloat(self.pageControl.currentPage+2)), y: 0), animated: true)
     }
     
     override func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         if scrollView == self.scrollView {
             let offsetX = scrollView.contentOffset.x
             if offsetX == 0 {
-                scrollView.contentOffset = CGPointMake(scrollView.frame.width * CGFloat(3), 0)
+                scrollView.contentOffset = CGPointMake(scrollView.frame.width * CGFloat(self.advertisingArray.count), 0)
             }
-            if offsetX == scrollView.frame.width * CGFloat(4) {
+            if offsetX == scrollView.frame.width*CGFloat(self.advertisingArray.count+1) {
                 scrollView.contentOffset = CGPointMake(scrollView.frame.width, 0)
             }
-            let currentPage = scrollView.contentOffset.x / scrollView.frame.width - 1
+            let currentPage = scrollView.contentOffset.x/scrollView.frame.width-1
             self.pageControl.currentPage = Int(currentPage)
         }
     }
@@ -137,12 +148,12 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
         if scrollView == self.scrollView {
             let offsetX = scrollView.contentOffset.x
             if offsetX == 0 {
-                scrollView.contentOffset = CGPointMake(scrollView.frame.width * CGFloat(3), 0)
+                scrollView.contentOffset = CGPointMake(scrollView.frame.width * CGFloat(self.advertisingArray.count), 0)
             }
-            if offsetX == scrollView.frame.width * CGFloat(4) {
+            if offsetX == scrollView.frame.width*CGFloat(self.advertisingArray.count+1) {
                 scrollView.contentOffset = CGPointMake(scrollView.frame.width, 0)
             }
-            let currentPage = scrollView.contentOffset.x / scrollView.frame.width - 1
+            let currentPage = scrollView.contentOffset.x/scrollView.frame.width-1
             self.pageControl.currentPage = Int(currentPage)
         }
     }
@@ -171,7 +182,7 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
         var cell: UICollectionViewCell? = nil
         if(collectionView === goodsclassCollectionView){
             cell = self.goodsclassCollectionView.dequeueReusableCellWithReuseIdentifier("goodsclassCell", forIndexPath: indexPath) as UICollectionViewCell
-            let imageUrlString:String = self.goodsclassArray[indexPath.row].gcImage
+            let imageUrlString:String = self.goodsclassArray[indexPath.row].iconUrl
             let url:NSURL! = NSURL(string: imageUrlString)
             let data:NSData! = NSData(contentsOfURL: url)
             let image = UIImage(data: data)

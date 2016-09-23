@@ -19,17 +19,15 @@ class RequestServer {
     //request请求包的封装和GET网络请求方法的调用
     func netRequest(modelName: String, completion: (array: [AnyObject]) -> ()) {
         let request = NSMutableURLRequest()                             //request请求包
-        request.URL = NSURL(string: url)
+        request.URL = NSURL(string: url+modelName)
         request.setValue("application/json;", forHTTPHeaderField: "Content-Type")
         request.addValue(key, forHTTPHeaderField: "VendorToken")
         request.HTTPMethod = "GET"
         let session = NSURLSession.sharedSession()                                              //初始化session
         session.dataTaskWithRequest(request){(data, response, error) -> Void in
-            print(response)
             if let data = data{
                 let json = try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers)
-                print(json)
-                self.objArray = jsonConvertToModel(self.objArray, lastUrl: modelName)
+                self.objArray = jsonConvertToModel(json, lastUrl: modelName)
                 completion(array: self.objArray)
             }
             }.resume()
