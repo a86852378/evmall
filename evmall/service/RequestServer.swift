@@ -25,8 +25,10 @@ class RequestServer {
         request.HTTPMethod = "GET"
         let session = NSURLSession.sharedSession()                                              //初始化session
         session.dataTaskWithRequest(request){(data, response, error) -> Void in
-            if let data = data{
-                let json = try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers)
+            let httpResponse = response as! NSHTTPURLResponse
+            let statusCode = httpResponse.statusCode
+            if statusCode == 200 {
+                let json = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)
                 self.objArray = jsonConvertToModel(json, lastUrl: modelName)
                 completion(array: self.objArray)
             }
