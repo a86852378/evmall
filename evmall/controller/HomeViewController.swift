@@ -8,8 +8,9 @@
 
 import UIKit
 
-class HomeViewController: UITableViewController,UICollectionViewDelegate,UICollectionViewDataSource{
+class HomeViewController: UITableViewController,UICollectionViewDelegate,UICollectionViewDataSource,UISearchBarDelegate{
 
+    var homeTopSearchBar: UISearchBar!
     var pageControl = UIPageControl()
     var scrollView = UIScrollView()
     var layout = UICollectionViewFlowLayout()
@@ -21,18 +22,26 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
     var goodsclassArray: [Goodsclass] = []
     var goodsArray: [Goods] = []
     
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadData()
-        tableView.separatorStyle = UITableViewCellSeparatorStyle.None
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.showsVerticalScrollIndicator = false
+        loadData()                                                        //获取首页所需要的数据
+        self.navigationController?.navigationBar.barTintColor = UIColor.orangeColor()      //改变navigationbar背景颜色
+        self.navigationController?.navigationBar.barStyle = UIBarStyle.BlackTranslucent    //将bar改为背景颜色为黑，字为白模式
+        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()          //将添加在bar上的字设置为白色
+        self.tabBarController?.tabBar.translucent = true
+        self.tableView.backgroundColor = UIColor.blackColor()
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.None     //去掉tableview的分隔符
+        tableView.rowHeight = UITableViewAutomaticDimension               //tableview自适应长度
+        tableView.showsVerticalScrollIndicator = false                    //去掉tableview滚动条
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
+    
     func loadData() {
         getData("advertising"){(array) in
             self.advertisingArray = array as! [Advertising]
@@ -46,6 +55,7 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
             self.goodsArray = array as! [Goods]
             dispatch_async(dispatch_get_main_queue(),{self.goodsCollectionView.reloadData()})
         }
+        
     }
     
     func reloadScrollView() {
@@ -89,6 +99,17 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
         }
     }
     
+    func next() {
+        scrollView.setContentOffset(CGPoint(x: (scrollView.frame.width * CGFloat(self.pageControl.currentPage+2)), y: 0), animated: true)
+    }
+    
+    func pageChanged(sender:UIPageControl) {
+        var frame = scrollView.frame
+        frame.origin.x = frame.size.width * CGFloat(sender.currentPage)
+        frame.origin.y = 0
+        scrollView.scrollRectToVisible(frame, animated:true)
+    }
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
     }
@@ -100,9 +121,6 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
         }
         else if(indexPath.row == 1){
             height = 130
-        }
-        else if(indexPath.row == 2){
-            height = self.view.frame.height-250
         }
         return height
     }
@@ -124,18 +142,18 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
             cell.addSubview(goodsclassCollectionView)
         }
         else if(indexPath.row == 2){
+            goodsCollectionView.collectionViewLayout = layout
+            layout.minimumLineSpacing = 3
+            layout.minimumInteritemSpacing = 3
             goodsCollectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "goodsCell")
-            goodsCollectionView.frame = CGRectMake(0, 0, 320, self.view.frame.height-250)
-            goodsCollectionView.backgroundColor = UIColor.whiteColor()
+            goodsCollectionView.frame = CGRectMake(0, 0, 320, 210)
+            goodsCollectionView.backgroundColor = UIColor.clearColor()
+            goodsCollectionView.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 0.9)
             goodsCollectionView.delegate = self
             goodsCollectionView.dataSource = self
             cell.addSubview(goodsCollectionView)
         }
         return cell
-    }
-    
-    func next() {
-       scrollView.setContentOffset(CGPoint(x: (scrollView.frame.width * CGFloat(self.pageControl.currentPage+2)), y: 0), animated: true)
     }
     
     override func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
@@ -166,13 +184,6 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
         }
     }
     
-    func pageChanged(sender:UIPageControl) {
-        var frame = scrollView.frame
-        frame.origin.x = frame.size.width * CGFloat(sender.currentPage)
-        frame.origin.y = 0
-        scrollView.scrollRectToVisible(frame, animated:true)
-    }
-    
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
         var cellNumber: Int = 0
@@ -195,11 +206,11 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
             let data: NSData = NSData(contentsOfURL: url)!
             let image = UIImage(data: data)
             let imageView = UIImageView(image: image)
-            imageView.backgroundColor = UIColor.redColor()
+            imageView.backgroundColor = UIColor.blueColor()
             imageView.layer.cornerRadius = 19
             imageView.clipsToBounds = true
             imageView.frame = CGRectMake(6, 0, 38, 38)
-            let label = UILabel(frame: CGRectMake(0, 40, 50, 10))
+            let label = UILabel(frame: CGRectMake(0, 42, 50, 8))
             label.text = self.goodsclassArray[indexPath.row].gcName
             label.textAlignment = NSTextAlignment.Center
             label.font = UIFont.systemFontOfSize(10)
@@ -213,11 +224,11 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
             let data: NSData = NSData(contentsOfURL: url)!
             let image = UIImage(data: data)
             let imageView = UIImageView(image: image)
-            imageView.frame = CGRectMake(0, 0, (self.view.frame.width-10)/2, 165)
-            let nameLabel = UILabel(frame: CGRectMake(10, 167, (self.view.frame.width-10)/2, 20))
+            imageView.frame = CGRectMake(0, 0, (self.view.frame.width-6)/2, 150)
+            let nameLabel = UILabel(frame: CGRectMake(10, 155, (self.view.frame.width-6)/2, 20))
             nameLabel.text = self.goodsArray[indexPath.row].goodsName
             nameLabel.font = UIFont.systemFontOfSize(13)
-            let priceLabel = UILabel(frame: CGRectMake(10, 190, (self.view.frame.width-10)/2, 10))
+            let priceLabel = UILabel(frame: CGRectMake(10, 180, (self.view.frame.width-6)/2, 20))
             priceLabel.text = "¥\(self.goodsArray[indexPath.row].goodsPrice)"
             priceLabel.textColor = UIColor.redColor()
             priceLabel.font = UIFont.systemFontOfSize(14)
@@ -234,7 +245,7 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
             return CGSize(width: 50, height: 50)
         }
         else{
-            return CGSize(width: (self.view.frame.width-10)/2, height: 200)
+            return CGSize(width: (self.view.frame.width-6)/2, height: 200)
         }
     }
     
@@ -243,7 +254,7 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
             return UIEdgeInsetsMake(10, 15, 10, 15)
         }
         else{
-            return UIEdgeInsetsMake(0, 0, 0, 0)
+            return UIEdgeInsetsMake(10, 0, 0, 0)
         }
     }
     
