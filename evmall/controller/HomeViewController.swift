@@ -271,13 +271,17 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
     {
         if(collectionView === goodsclassCollectionView){
             let sb = UIStoryboard(name: "Main", bundle: nil)
-            let gdcontroller = sb.instantiateViewControllerWithIdentifier("GoodsclassID") as! GoodsclassViewController
-            gdcontroller.goodsclassID = indexPath.row
-            gdcontroller.hidesBottomBarWhenPushed = true
-            self.navigationController?.pushViewController(gdcontroller, animated: true)
+            let nextController = sb.instantiateViewControllerWithIdentifier("GoodsclassID") as! GoodsclassViewController
+            nextController.goodsclassID = indexPath.row
+            nextController.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(nextController, animated: true)
         }
         else{
-            
+            let sb = UIStoryboard(name: "Main", bundle: nil)
+            let nextController = sb.instantiateViewControllerWithIdentifier("GoodsID") as! GoodsViewController
+            nextController.goods = self.goodsArray[indexPath.row]
+            nextController.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(nextController, animated: true)
         }
     }
 }

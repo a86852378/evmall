@@ -21,6 +21,7 @@
 		5B40452B1D93C88700550030 /* Goods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B40452A1D93C88700550030 /* Goods.swift */; };
 		5B40452F1D93D92B00550030 /* AdvImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B40452E1D93D92B00550030 /* AdvImage.swift */; };
 		5BCEF8FA1D9CF65F008F9DE3 /* GoodsclassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCEF8F91D9CF65F008F9DE3 /* GoodsclassViewController.swift */; };
+		5BCEF8FC1D9CFE38008F9DE3 /* GoodsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCEF8FB1D9CFE38008F9DE3 /* GoodsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		5B40452A1D93C88700550030 /* Goods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Goods.swift; sourceTree = "<group>"; };
 		5B40452E1D93D92B00550030 /* AdvImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvImage.swift; sourceTree = "<group>"; };
 		5BCEF8F91D9CF65F008F9DE3 /* GoodsclassViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodsclassViewController.swift; sourceTree = "<group>"; };
+		5BCEF8FB1D9CFE38008F9DE3 /* GoodsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +123,7 @@
 			children = (
 				5B2CA2881D7FB7FE0039F771 /* HomeViewController.swift */,
 				5BCEF8F91D9CF65F008F9DE3 /* GoodsclassViewController.swift */,
+				5BCEF8FB1D9CFE38008F9DE3 /* GoodsViewController.swift */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 				5B40452B1D93C88700550030 /* Goods.swift in Sources */,
 				5B2CA29D1D7FF8200039F771 /* ConvertModelToDictionary.swift in Sources */,
 				5B2CA28E1D7FEBC90039F771 /* Service.swift in Sources */,
+				5BCEF8FC1D9CFE38008F9DE3 /* GoodsViewController.swift in Sources */,
 				5B2CA28D1D7FEBC90039F771 /* RequestServer.swift in Sources */,
 				5B40452F1D93D92B00550030 /* AdvImage.swift in Sources */,
 				5B2CA2651D7FB4B30039F771 /* AppDelegate.swift in Sources */,
