@@ -20,6 +20,7 @@
 		5B2CA2AC1D7FF8830039F771 /* Goodsclass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2CA2A31D7FF8830039F771 /* Goodsclass.swift */; };
 		5B40452B1D93C88700550030 /* Goods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B40452A1D93C88700550030 /* Goods.swift */; };
 		5B40452F1D93D92B00550030 /* AdvImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B40452E1D93D92B00550030 /* AdvImage.swift */; };
+		5BCEF8FA1D9CF65F008F9DE3 /* GoodsclassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCEF8F91D9CF65F008F9DE3 /* GoodsclassViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,7 @@
 		5B2CA2A31D7FF8830039F771 /* Goodsclass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Goodsclass.swift; sourceTree = "<group>"; };
 		5B40452A1D93C88700550030 /* Goods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Goods.swift; sourceTree = "<group>"; };
 		5B40452E1D93D92B00550030 /* AdvImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvImage.swift; sourceTree = "<group>"; };
+		5BCEF8F91D9CF65F008F9DE3 /* GoodsclassViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodsclassViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				5B2CA2881D7FB7FE0039F771 /* HomeViewController.swift */,
+				5BCEF8F91D9CF65F008F9DE3 /* GoodsclassViewController.swift */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5BCEF8FA1D9CF65F008F9DE3 /* GoodsclassViewController.swift in Sources */,
 				5B2CA2AC1D7FF8830039F771 /* Goodsclass.swift in Sources */,
 				5B2CA2851D7FB5DB0039F771 /* constant.swift in Sources */,
 				5B2CA2891D7FB7FE0039F771 /* HomeViewController.swift in Sources */,

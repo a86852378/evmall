@@ -28,14 +28,17 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
     override func viewDidLoad() {
         super.viewDidLoad()
         loadData()                                                        //获取首页所需要的数据
-        self.navigationController?.navigationBar.barTintColor = UIColor.orangeColor()      //改变navigationbar背景颜色
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 248/255, green: 124/255, blue: 48/255, alpha: 1)      //改变navigationbar背景颜色
         self.navigationController?.navigationBar.barStyle = UIBarStyle.BlackTranslucent    //将bar改为背景颜色为黑，字为白模式
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()          //将添加在bar上的字设置为白色
-        self.tabBarController?.tabBar.translucent = true
-        self.tableView.backgroundColor = UIColor.blackColor()
+//        self.tabBarController?.tabBar.translucent = true
+        self.tabBarController?.tabBar.barTintColor = UIColor.whiteColor()                  //tabbar的背景颜色
+        self.tabBarController?.tabBar.tintColor = UIColor(red: 248/255, green: 124/255, blue: 48/255, alpha: 1)  //tabtar的图标颜色
         tableView.separatorStyle = UITableViewCellSeparatorStyle.None     //去掉tableview的分隔符
         tableView.rowHeight = UITableViewAutomaticDimension               //tableview自适应长度
         tableView.showsVerticalScrollIndicator = false                    //去掉tableview滚动条
+        tableView.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)     //tableview背景颜色
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,9 +56,10 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
         }
         getData("goods"){(array) in
             self.goodsArray = array as! [Goods]
-            dispatch_async(dispatch_get_main_queue(),{self.goodsCollectionView.reloadData()})
+            dispatch_async(dispatch_get_main_queue(),{self.goodsCollectionView.reloadData()
+            self.tableView.reloadData()})
         }
-        
+
     }
     
     func reloadScrollView() {
@@ -90,7 +94,7 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
         self.automaticallyAdjustsScrollViewInsets = false
         scrollView.delegate = self
         pageControl.currentPageIndicatorTintColor = UIColor.orangeColor()
-        pageControl.pageIndicatorTintColor = UIColor(red: 255, green: 255, blue: 255, alpha: 0.8)
+        pageControl.pageIndicatorTintColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.8)
         pageControl.frame = CGRectMake(260, 100, 40, 10)
         pageControl.addTarget(self, action: #selector(pageChanged(_:)),forControlEvents: UIControlEvents.ValueChanged)
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
@@ -122,6 +126,10 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
         else if(indexPath.row == 1){
             height = 130
         }
+        else if(indexPath.row == 2){
+            let newHeight = (self.goodsArray.count/2 + self.goodsArray.count%2)*200 + ((self.goodsArray.count/2 + self.goodsArray.count%2)-1)*10 + 20
+            height = CGFloat(newHeight)
+        }
         return height
     }
     
@@ -141,12 +149,13 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
             goodsclassCollectionView.dataSource = self
             cell.addSubview(goodsclassCollectionView)
         }
+        //商品展示
         else if(indexPath.row == 2){
             goodsCollectionView.collectionViewLayout = layout
             layout.minimumLineSpacing = 3
             layout.minimumInteritemSpacing = 3
             goodsCollectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "goodsCell")
-            goodsCollectionView.frame = CGRectMake(0, 0, 320, 210)
+            goodsCollectionView.frame = CGRectMake(0, 0, 320, 220)
             goodsCollectionView.backgroundColor = UIColor.clearColor()
             goodsCollectionView.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 0.9)
             goodsCollectionView.delegate = self
@@ -254,13 +263,22 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
             return UIEdgeInsetsMake(10, 15, 10, 15)
         }
         else{
-            return UIEdgeInsetsMake(10, 0, 0, 0)
+            return UIEdgeInsetsMake(10, 0, 10, 0)
         }
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
     {
-        //点击事件
+        if(collectionView === goodsclassCollectionView){
+            let sb = UIStoryboard(name: "Main", bundle: nil)
+            let gdcontroller = sb.instantiateViewControllerWithIdentifier("GoodsclassID") as! GoodsclassViewController
+            gdcontroller.goodsclassID = indexPath.row
+            gdcontroller.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(gdcontroller, animated: true)
+        }
+        else{
+            
+        }
     }
 }
 
