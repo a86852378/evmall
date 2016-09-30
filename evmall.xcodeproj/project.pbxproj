@@ -19,9 +19,10 @@
 		5B2CA29D1D7FF8200039F771 /* ConvertModelToDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2CA2961D7FF8200039F771 /* ConvertModelToDictionary.swift */; };
 		5B2CA2AC1D7FF8830039F771 /* Goodsclass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2CA2A31D7FF8830039F771 /* Goodsclass.swift */; };
 		5B40452B1D93C88700550030 /* Goods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B40452A1D93C88700550030 /* Goods.swift */; };
-		5B40452F1D93D92B00550030 /* AdvImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B40452E1D93D92B00550030 /* AdvImage.swift */; };
 		5BCEF8FA1D9CF65F008F9DE3 /* GoodsclassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCEF8F91D9CF65F008F9DE3 /* GoodsclassViewController.swift */; };
 		5BCEF8FC1D9CFE38008F9DE3 /* GoodsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCEF8FB1D9CFE38008F9DE3 /* GoodsViewController.swift */; };
+		5BCEF8FE1D9D1037008F9DE3 /* AdvWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCEF8FD1D9D1037008F9DE3 /* AdvWebViewController.swift */; };
+		5BCEF9001D9D1178008F9DE3 /* Advertising.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCEF8FF1D9D1178008F9DE3 /* Advertising.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,9 +52,10 @@
 		5B2CA2961D7FF8200039F771 /* ConvertModelToDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvertModelToDictionary.swift; sourceTree = "<group>"; };
 		5B2CA2A31D7FF8830039F771 /* Goodsclass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Goodsclass.swift; sourceTree = "<group>"; };
 		5B40452A1D93C88700550030 /* Goods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Goods.swift; sourceTree = "<group>"; };
-		5B40452E1D93D92B00550030 /* AdvImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvImage.swift; sourceTree = "<group>"; };
 		5BCEF8F91D9CF65F008F9DE3 /* GoodsclassViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodsclassViewController.swift; sourceTree = "<group>"; };
 		5BCEF8FB1D9CFE38008F9DE3 /* GoodsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodsViewController.swift; sourceTree = "<group>"; };
+		5BCEF8FD1D9D1037008F9DE3 /* AdvWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvWebViewController.swift; sourceTree = "<group>"; };
+		5BCEF8FF1D9D1178008F9DE3 /* Advertising.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Advertising.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 				5B2CA2881D7FB7FE0039F771 /* HomeViewController.swift */,
 				5BCEF8F91D9CF65F008F9DE3 /* GoodsclassViewController.swift */,
 				5BCEF8FB1D9CFE38008F9DE3 /* GoodsViewController.swift */,
+				5BCEF8FD1D9D1037008F9DE3 /* AdvWebViewController.swift */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -148,9 +151,9 @@
 		5B2CA29E1D7FF8830039F771 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				5BCEF8FF1D9D1178008F9DE3 /* Advertising.swift */,
 				5B2CA2A31D7FF8830039F771 /* Goodsclass.swift */,
 				5B40452A1D93C88700550030 /* Goods.swift */,
-				5B40452E1D93D92B00550030 /* AdvImage.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -256,6 +259,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5BCEF9001D9D1178008F9DE3 /* Advertising.swift in Sources */,
 				5BCEF8FA1D9CF65F008F9DE3 /* GoodsclassViewController.swift in Sources */,
 				5B2CA2AC1D7FF8830039F771 /* Goodsclass.swift in Sources */,
 				5B2CA2851D7FB5DB0039F771 /* constant.swift in Sources */,
@@ -265,7 +269,7 @@
 				5B2CA28E1D7FEBC90039F771 /* Service.swift in Sources */,
 				5BCEF8FC1D9CFE38008F9DE3 /* GoodsViewController.swift in Sources */,
 				5B2CA28D1D7FEBC90039F771 /* RequestServer.swift in Sources */,
-				5B40452F1D93D92B00550030 /* AdvImage.swift in Sources */,
+				5BCEF8FE1D9D1037008F9DE3 /* AdvWebViewController.swift in Sources */,
 				5B2CA2651D7FB4B30039F771 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

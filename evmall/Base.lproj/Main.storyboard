@@ -78,6 +78,20 @@
             </objects>
             <point key="canvasLocation" x="526" y="-678"/>
         </scene>
+        <!--Adv Web View Controller-->
+        <scene sceneID="LoS-kX-48U">
+            <objects>
+                <viewController storyboardIdentifier="AdvWebID" id="OMT-Rg-3Ic" customClass="AdvWebViewController" customModule="evmall" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="EiL-hO-Ry2">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3zP-2a-E0i" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="933" y="-678"/>
+        </scene>
         <!--Goodsclass View Controller-->
         <scene sceneID="4nR-7k-1HK">
             <objects>
@@ -90,7 +104,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b5H-Wo-pgB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="918" y="-678"/>
+            <point key="canvasLocation" x="1341" y="-678"/>
         </scene>
         <!--Goods View Controller-->
         <scene sceneID="i3b-x6-M3D">
@@ -104,7 +118,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="otd-hp-qyE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1305" y="-678"/>
+            <point key="canvasLocation" x="1748" y="-678"/>
         </scene>
         <!--首页-->
         <scene sceneID="qpb-Lz-CqT">

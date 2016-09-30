@@ -18,6 +18,9 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
     var goodsCollectionView = UICollectionView(frame: CGRectMake(0, 0, 0, 0), collectionViewLayout: UICollectionViewFlowLayout())
     var timer: NSTimer?
     var rollingTime: NSTimeInterval = 3.0
+    var selectPic: Int = 0
+    var currentIndexPath: [NSIndexPath] = []
+    var goodclassColor: [UIColor] = [UIColor.redColor(),UIColor.orangeColor(),UIColor.magentaColor(),UIColor.blueColor(),UIColor.purpleColor(),UIColor.orangeColor(),UIColor.magentaColor(),UIColor.purpleColor()]
     var advertisingArray: [Advertising] = []
     var goodsclassArray: [Goodsclass] = []
     var goodsArray: [Goods] = []
@@ -27,7 +30,7 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadData()                                                        //获取首页所需要的数据
+        NSThread.detachNewThreadSelector(#selector(HomeViewController.loadData), toTarget: self, withObject: nil)
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 248/255, green: 124/255, blue: 48/255, alpha: 1)      //改变navigationbar背景颜色
         self.navigationController?.navigationBar.barStyle = UIBarStyle.BlackTranslucent    //将bar改为背景颜色为黑，字为白模式
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()          //将添加在bar上的字设置为白色
@@ -39,6 +42,10 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
         tableView.showsVerticalScrollIndicator = false                    //去掉tableview滚动条
         tableView.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)     //tableview背景颜色
         
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+            self.timer = NSTimer.scheduledTimerWithTimeInterval(self.rollingTime, target: self, selector: #selector(self.next), userInfo: nil, repeats: true)
+            NSRunLoop.currentRunLoop().run()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -48,7 +55,7 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
     func loadData() {
         getData("advertising"){(array) in
             self.advertisingArray = array as! [Advertising]
-            dispatch_async(dispatch_get_main_queue(),{self.reloadScrollView()})
+            dispatch_async(dispatch_get_main_queue(),{self.tableView.reloadRowsAtIndexPaths(self.currentIndexPath, withRowAnimation: UITableViewRowAnimation.Fade)})
         }
         getData("goodsclass"){(array) in
             self.goodsclassArray = array as! [Goodsclass]
@@ -56,52 +63,20 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
         }
         getData("goods"){(array) in
             self.goodsArray = array as! [Goods]
-            dispatch_async(dispatch_get_main_queue(),{self.goodsCollectionView.reloadData()
-            self.tableView.reloadData()})
+            dispatch_async(dispatch_get_main_queue(),{self.goodsCollectionView.reloadData()})
+            self.tableView.reloadData()
         }
-
+        tableView.reloadData()
     }
     
-    func reloadScrollView() {
-        scrollView.pagingEnabled = true
-        scrollView.showsHorizontalScrollIndicator = false
-        scrollView.showsVerticalScrollIndicator = false
-        scrollView.scrollEnabled = true
-        scrollView.frame = CGRectMake(0, 0, 320, 120)
-        pageControl.numberOfPages = self.advertisingArray.count
-        scrollView.contentSize = CGSizeMake(self.scrollView.frame.width*CGFloat(self.advertisingArray.count+2),self.scrollView.frame.height)
-        scrollView.contentOffset = CGPointMake(scrollView.frame.width, 0)
-        if(self.advertisingArray.count != 0){
-            for i in 0...self.advertisingArray.count+1 {
-                let imageUrlString:String
-                switch i {
-                case 0:
-                    imageUrlString = self.advertisingArray[self.advertisingArray.count-1].pictureUrl
-                case self.advertisingArray.count+1:
-                    imageUrlString = self.advertisingArray[0].pictureUrl
-                default:
-                    imageUrlString = self.advertisingArray[i-1].pictureUrl
-                }
-                let url:NSURL! = NSURL(string: imageUrlString)
-                let data:NSData! = NSData(contentsOfURL: url)
-                let image = UIImage(data: data)
-                let imageView =  UIImageView(image: image)
-                imageView.frame = CGRectMake(self.scrollView.frame.width*CGFloat(i), 0, self.scrollView.frame.width, self.scrollView.frame.height)
-                self.scrollView.addSubview(imageView)
-            }
+    func clickPic(picTag: UITapGestureRecognizer) {
+        let num = picTag.view!.tag
+        let ms = UIStoryboard(name: "Main", bundle: nil)
+        let nextController = ms.instantiateViewControllerWithIdentifier("AdvWebID") as! AdvWebViewController
+        nextController.advertising = self.advertisingArray[num]
+        nextController.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(nextController, animated: true)
         }
-        self.edgesForExtendedLayout = UIRectEdge.None
-        self.automaticallyAdjustsScrollViewInsets = false
-        scrollView.delegate = self
-        pageControl.currentPageIndicatorTintColor = UIColor.orangeColor()
-        pageControl.pageIndicatorTintColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.8)
-        pageControl.frame = CGRectMake(260, 100, 40, 10)
-        pageControl.addTarget(self, action: #selector(pageChanged(_:)),forControlEvents: UIControlEvents.ValueChanged)
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-            self.timer = NSTimer.scheduledTimerWithTimeInterval(self.rollingTime, target: self, selector: #selector(self.next), userInfo: nil, repeats: true)
-            NSRunLoop.currentRunLoop().run()
-        }
-    }
     
     func next() {
         scrollView.setContentOffset(CGPoint(x: (scrollView.frame.width * CGFloat(self.pageControl.currentPage+2)), y: 0), animated: true)
@@ -137,6 +112,46 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
         let cell = UITableViewCell()
         //广告自动循环轮播
         if(indexPath.row == 0){
+            currentIndexPath.append(indexPath)
+            scrollView.pagingEnabled = true
+            scrollView.showsHorizontalScrollIndicator = false
+            scrollView.showsVerticalScrollIndicator = false
+            scrollView.scrollEnabled = true
+            scrollView.frame = CGRectMake(0, 0, 320, 120)
+            pageControl.numberOfPages = self.advertisingArray.count
+            scrollView.contentSize = CGSizeMake(self.scrollView.frame.width*CGFloat(self.advertisingArray.count+2),self.scrollView.frame.height)
+            scrollView.contentOffset = CGPointMake(scrollView.frame.width, 0)
+            if(self.advertisingArray.count != 0){
+                for i in 0...self.advertisingArray.count+1 {
+                    let imageUrlString:String
+                    switch i {
+                    case 0:
+                        imageUrlString = self.advertisingArray[self.advertisingArray.count-1].pictureUrl
+                    case self.advertisingArray.count+1:
+                        imageUrlString = self.advertisingArray[0].pictureUrl
+                    default:
+                        imageUrlString = self.advertisingArray[i-1].pictureUrl
+                    }
+                    let url:NSURL! = NSURL(string: imageUrlString)
+                    let data:NSData! = NSData(contentsOfURL: url)
+                    let image = UIImage(data: data)
+                    let imageView =  UIImageView(image: image)
+                    if(i != 0 && i != self.advertisingArray.count+1){
+                        imageView.userInteractionEnabled = true
+                        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.clickPic(_:))))
+                        imageView.tag = i-1
+                    }
+                    imageView.frame = CGRectMake(self.scrollView.frame.width*CGFloat(i), 0, self.scrollView.frame.width, self.scrollView.frame.height)
+                    self.scrollView.addSubview(imageView)
+                }
+            }
+            self.edgesForExtendedLayout = UIRectEdge.None
+            self.automaticallyAdjustsScrollViewInsets = false
+            scrollView.delegate = self
+            pageControl.currentPageIndicatorTintColor = UIColor.orangeColor()
+            pageControl.pageIndicatorTintColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.8)
+            pageControl.frame = CGRectMake(260, 100, 40, 10)
+            pageControl.addTarget(self, action: #selector(pageChanged(_:)),forControlEvents: UIControlEvents.ValueChanged)
             cell.addSubview(scrollView)
             cell.addSubview(pageControl)
         }
@@ -214,16 +229,19 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
             let url: NSURL = NSURL(string: imageUrlString)!
             let data: NSData = NSData(contentsOfURL: url)!
             let image = UIImage(data: data)
-            let imageView = UIImageView(image: image)
-            imageView.backgroundColor = UIColor.blueColor()
-            imageView.layer.cornerRadius = 19
-            imageView.clipsToBounds = true
-            imageView.frame = CGRectMake(6, 0, 38, 38)
+            let imageView = UIImageView(frame: CGRectMake(9, 9, 20, 20))
+            imageView.image = image
+            imageView.backgroundColor = goodclassColor[indexPath.row]
+            let view = UIView(frame: CGRectMake(6, 0, 38, 38))
+            view.addSubview(imageView)
+            view.backgroundColor = goodclassColor[indexPath.row]
+            view.layer.cornerRadius = 19
+            view.clipsToBounds = true
             let label = UILabel(frame: CGRectMake(0, 42, 50, 8))
             label.text = self.goodsclassArray[indexPath.row].gcName
             label.textAlignment = NSTextAlignment.Center
             label.font = UIFont.systemFontOfSize(10)
-            cell!.addSubview(imageView)
+            cell!.addSubview(view)
             cell!.addSubview(label)
         }
         else{
@@ -270,15 +288,15 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate,UIColle
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
     {
         if(collectionView === goodsclassCollectionView){
-            let sb = UIStoryboard(name: "Main", bundle: nil)
-            let nextController = sb.instantiateViewControllerWithIdentifier("GoodsclassID") as! GoodsclassViewController
+            let ms = UIStoryboard(name: "Main", bundle: nil)
+            let nextController = ms.instantiateViewControllerWithIdentifier("GoodsclassID") as! GoodsclassViewController
             nextController.goodsclassID = indexPath.row
             nextController.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(nextController, animated: true)
         }
         else{
-            let sb = UIStoryboard(name: "Main", bundle: nil)
-            let nextController = sb.instantiateViewControllerWithIdentifier("GoodsID") as! GoodsViewController
+            let ms = UIStoryboard(name: "Main", bundle: nil)
+            let nextController = ms.instantiateViewControllerWithIdentifier("GoodsID") as! GoodsViewController
             nextController.goods = self.goodsArray[indexPath.row]
             nextController.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(nextController, animated: true)
