@@ -14,8 +14,8 @@ class AdvWebViewController: UIViewController{
     override func viewDidLoad() {
         webView.frame = self.view.bounds
         let webUrl = NSURL(string: advertising.linkUrl)
-        let webRequest = NSURLRequest(URL: webUrl!)
-        webView.loadRequest(webRequest)
+        let webRequest = NSURLRequest(url: webUrl! as URL)
+        webView.loadRequest(webRequest as URLRequest)
         self.view.addSubview(webView)
     }
     

@@ -21,12 +21,12 @@ class ConvertModelToDictionary {
                 var tradingAreaCommunitiesArray: Array<NSDictionary> = []
                 for i in 0..<ary.count{
                     var tradingAreaCommunitiesDict: NSDictionary
-                    tradingAreaCommunitiesDict = transformDictionary(ary[i])
+                    tradingAreaCommunitiesDict = transformDictionary(modelDemo: ary[i] as AnyObject)
                     tradingAreaCommunitiesArray.append(tradingAreaCommunitiesDict)
                 }
                 dictionaryDemo.setValue(tradingAreaCommunitiesArray, forKey: m.label!)
             case let dict as NSDictionary:
-                dictionaryDemo.setValue(transformDictionary(dict), forKey: m.label!)
+                dictionaryDemo.setValue(transformDictionary(modelDemo: dict), forKey: m.label!)
             case let int as Int:
                 if(int != 0){
                     dictionaryDemo.setValue(int, forKey: m.label!)

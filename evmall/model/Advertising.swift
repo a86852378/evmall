@@ -16,8 +16,8 @@ class Advertising {
     
     init(){}
     init(json: AnyObject) {
-        if let objKey = json.objectForKey("pictureUrl"){self.pictureUrl = objKey as! String}
-        if let objKey = json.objectForKey("linkUrl"){self.linkUrl = objKey as! String}
+        if let objKey = json.object(forKey: "pictureUrl"){self.pictureUrl = objKey as! String}
+        if let objKey = json.object(forKey: "linkUrl"){self.linkUrl = objKey as! String}
     }
 }
 

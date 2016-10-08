@@ -9,9 +9,9 @@
 import UIKit
 
 
-public func getData(modelName:String, completion: (array: [AnyObject]) -> ()) {
-    netRequestController.netRequest(modelName){ (array) in
-        completion(array: array)
+public func getData(modelName:String, completion: @escaping (_ array: [AnyObject]) -> ()) {
+    netRequestController.netRequest(modelName: modelName){ (array) in
+        completion(array)
     }
 }
 
@@ -23,19 +23,19 @@ public func jsonConvertToModel(json: AnyObject, lastUrl: String) -> [AnyObject] 
     switch lastUrl {
     case "goodsclass":
         for i in 0..<json.count{
-            let goodsclass = Goodsclass(json: json[i])
+            let goodsclass = Goodsclass(json: json.allObjects[i])
             goodsclassArray.append(goodsclass)
         }
         return goodsclassArray
     case "goods":
-        for i in 0..<json.objectForKey("data")!.count{
-            let goods = Goods(json: json.objectForKey("data")![i])
+        for i in 0..<(json.object(forKey: "data") as! NSArray).count{
+           let goods = Goods(json: (json.object(forKey: "data")! as AnyObject).allObjects[i])
             goodsArray.append(goods)
         }
         return goodsArray
     case "advertising":
         for i in 0..<json.count{
-            let advertising = Advertising(json: json[i])
+            let advertising = Advertising(json: json.allObjects[i])
             advertisingArray.append(advertising)
         }
         return advertisingArray

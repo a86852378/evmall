@@ -19,11 +19,11 @@ class Goods {
     
     init(){}
     init(json: AnyObject) {
-        if let objKey = json.objectForKey("goodsName"){self.goodsName = objKey as! String}
-        if let objKey = json.objectForKey("goodsJingle"){self.goodsJingle = objKey as! String}
-        if let objKey = json.objectForKey("goodsPrice"){self.goodsPrice = objKey as! Double}
-        if let objKey = json.objectForKey("goodsSaleNum"){self.goodsSaleNum = objKey as! Int}
-        if let objKey = json.objectForKey("goodsStorage"){self.goodsStorage = objKey as! Int}
-        if let objKey = json.objectForKey("goodsImage"){self.goodsImage = objKey as! String}
+        if let objKey = json.object(forKey: "goodsName"){self.goodsName = objKey as! String}
+        if let objKey = json.object(forKey: "goodsJingle"){self.goodsJingle = objKey as! String}
+        if let objKey = json.object(forKey: "goodsPrice"){self.goodsPrice = objKey as! Double}
+        if let objKey = json.object(forKey: "goodsSaleNum"){self.goodsSaleNum = objKey as! Int}
+        if let objKey = json.object(forKey: "goodsStorage"){self.goodsStorage = objKey as! Int}
+        if let objKey = json.object(forKey: "goodsImage"){self.goodsImage = objKey as! String}
     }
 }

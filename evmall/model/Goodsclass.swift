@@ -14,7 +14,7 @@ class Goodsclass {
     
     init(){}
     init(json: AnyObject) {
-        if let objKey = json.objectForKey("gcName"){self.gcName = objKey as! String}
-        if let objKey = json.objectForKey("iconUrl"){self.iconUrl = objKey as! String}
+        if let objKey = json.object(forKey: "gcName"){self.gcName = objKey as! String}
+        if let objKey = json.object(forKey: "iconUrl"){self.iconUrl = objKey as! String}
     }
 }
