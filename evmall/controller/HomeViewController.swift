@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeViewController: UITableViewController,UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource,UISearchBarDelegate{
+class HomeViewController: UITableViewController,UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource{
 
     var homeTopSearchBar: UISearchBar!
     var pageControl = UIPageControl()
@@ -26,8 +26,6 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate, UIColl
     var goodsArray: [Goods] = []
     
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         Thread.detachNewThreadSelector(#selector(HomeViewController.loadData), toTarget: self, with: nil)
@@ -41,9 +39,9 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate, UIColl
         tableView.rowHeight = UITableViewAutomaticDimension               //tableview自适应长度
         tableView.showsVerticalScrollIndicator = false                    //去掉tableview滚动条
         tableView.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)     //tableview背景颜色
-        
-        DispatchQueue.global().async {
-            self.timer = Timer.scheduledTimer(timeInterval: self.rollingTime, target: self, selector: #selector(getter: self.next), userInfo: nil, repeats: true)
+
+        DispatchQueue.global(qos: .default).async {
+            self.timer = Timer.scheduledTimer(timeInterval: self.rollingTime, target: self, selector: #selector(self.nextPic), userInfo: nil, repeats: true)
             RunLoop.current.run()
         }
     }
@@ -78,7 +76,7 @@ class HomeViewController: UITableViewController,UICollectionViewDelegate, UIColl
         self.navigationController?.pushViewController(nextController, animated: true)
         }
     
-    func next() {
+    func nextPic() {
         scrollView.setContentOffset(CGPoint(x: (scrollView.frame.width * CGFloat(self.pageControl.currentPage+2)), y: 0), animated: true)
     }
     

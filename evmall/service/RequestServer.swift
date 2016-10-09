@@ -25,12 +25,14 @@ class RequestServer {
         request.httpMethod = "GET"
         let session = URLSession.shared                                              //初始化session
         session.dataTask(with: request as URLRequest){(data, response, error) -> Void in
-            let httpResponse = response as! HTTPURLResponse
-            let statusCode = httpResponse.statusCode
-            if statusCode == 200 {
-                let json = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
-                self.objArray = jsonConvertToModel(json: json as AnyObject, lastUrl: modelName)
-                completion(self.objArray)
+            if(response != nil){
+                let httpResponse = response as! HTTPURLResponse
+                let statusCode = httpResponse.statusCode
+                if statusCode == 200 {
+                    let json = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
+                    self.objArray = jsonConvertToModel(json: json as AnyObject, lastUrl: modelName)
+                    completion(self.objArray)
+                }
             }
             }.resume()
         }
